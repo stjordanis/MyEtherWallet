@@ -191,7 +191,7 @@
   }
 
   .page-container {
-    padding: 0 15px;
+    padding: 0 30px;
   }
 
   // *********************************************************************
@@ -695,15 +695,10 @@
     }
   }
 
-  .bootstrap-modal {
-    .modal-dialog {
-      max-width: 530px;
-    }
-  }
-
   .bootstrap-modal-wide {
     .modal-dialog {
       max-width: 650px;
+      padding: 5px;
     }
   }
 
@@ -717,7 +712,7 @@
 
   .modal-body {
     background-color: $background-color-white;
-    padding: 60px 70px 50px;
+    padding: 0;
 
     .title {
       color: $text-color-6;
@@ -731,20 +726,6 @@
       font-size: 14px;
       line-height: 21px;
       margin-bottom: 40px;
-    }
-
-    .button-container {
-      display: flex;
-      justify-content: center;
-
-      &.fixed-width-1 {
-        margin: 0 auto;
-        width: 250px;
-      }
-
-      button {
-        margin: 0 7px;
-      }
     }
   }
 
@@ -763,35 +744,11 @@
     overflow-y: auto;
   }
 
-  .bootstrap-modal.padding-25-20 .modal-body {
-    padding: 25px 20px;
-  }
-
-  .bootstrap-modal.padding-20 .modal-body {
-    padding: 20px;
-  }
-
-  .bootstrap-modal.padding-40-20 .modal-body {
-    padding: 40px 20px;
-  }
-
   .bootstrap-modal.background-image-1 .modal-body {
     background-image: url('~@/assets/images/modal/garlands.png');
     background-position: center 10px;
     background-repeat: no-repeat;
     background-size: 95%;
-  }
-
-  // Custom modal style for each pages -------------------------------
-  .access-my-wallet-options {
-    .modal-title {
-      font-size: 20px;
-      padding: 0 15px;
-    }
-
-    .modal-body {
-      padding: 40px;
-    }
   }
 
   // *********************************************************************
@@ -813,7 +770,7 @@
       background-color: $nav-tab--button-background-color;
       border: 0;
       border-radius: 0;
-      padding: 13px 0;
+      padding: 20px 0;
       height: 100%;
       font-size: 13px;
       line-height: 16px;
@@ -911,11 +868,11 @@
 
       // Rounded sliders
       &.round {
-        border-radius: 34px;
+        border-radius: 8px;
       }
 
       &.round::before {
-        border-radius: 100%;
+        border-radius: 6px;
       }
     }
 
@@ -973,11 +930,11 @@
 
       // Rounded sliders
       &.round {
-        border-radius: 34px;
+        border-radius: 50px;
       }
 
       &.round::before {
-        border-radius: 100%;
+        border-radius: 50px;
       }
     }
 

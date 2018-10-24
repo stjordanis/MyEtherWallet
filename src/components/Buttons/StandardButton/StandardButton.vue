@@ -1,11 +1,12 @@
 <template>
   <div 
-    :class="options.fullWidth ? 'full-width' : ''" 
+    :class="{'full-width': options.fullWidth, 'hide-mobile-button': onBottomOfPage && options.isThisMobileBottomButton}" 
     class="standard-button">
      
     <div :class="buttonClass">
       <div
-        class="the-button">{{ options.title }}
+        :class="[(options.isThisMobileBottomButton ? 'mobile-bottom-button' : ''), (options.noMinWidth ? 'no-min-width' : '')]" 
+        class="the-button-box ">{{ options.title }}
         <img 
           v-if="options.loadingIcon"
           class="loading-left" 
@@ -47,7 +48,9 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      onBottomOfPage: false
+    };
   },
   computed: {
     buttonClass() {
@@ -66,11 +69,31 @@ export default {
           return 'standard-button__green-border';
         case 'green-noclick':
           return 'standard-button__green-noclick';
+        case 'green-transparent':
+          return 'standard-button__green-transparent';
         case 'blue':
           return 'standard-button__blue';
         case 'blue-border':
           return 'standard-button__blue-border';
         default:
+      }
+    }
+  },
+  beforeMount() {
+    window.addEventListener('scroll', this.onPageScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.onPageScroll);
+  },
+  methods: {
+    onPageScroll() {
+      if (
+        window.innerHeight + window.pageYOffset >=
+        document.body.offsetHeight
+      ) {
+        this.onBottomOfPage = true;
+      } else {
+        this.onBottomOfPage = false;
       }
     }
   }

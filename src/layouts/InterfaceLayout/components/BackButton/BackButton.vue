@@ -8,16 +8,24 @@
           class="fa fa-arrow-left"
           aria-hidden="true"/>
       </div>
-      <p>{{ $t('common.back') }}</p>
+      <p v-if="!options.titleText">{{ $t('common.back') }}</p>
+      <p v-if="options.titleText">{{ options.titleText }}</p>
     </div>
   </div>
 </template>
 
 <script type="text/javascript">
 export default {
-  methods: {
-    back() {
-      this.$router.go(-1);
+  props: {
+    resetView: {
+      type: Function,
+      default: function() {}
+    },
+    options: {
+      type: Object,
+      default: function() {
+        return {};
+      }
     }
   }
 };

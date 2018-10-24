@@ -21,6 +21,7 @@ import SwapContainer from '@/layouts/InterfaceLayout/containers/SwapContainer';
 import SignMessageContainer from '@/layouts/InterfaceLayout/containers/SignMessageContainer';
 import VerifyMessageContainer from '@/layouts/InterfaceLayout/containers/VerifyMessageContainer';
 
+import TxStatusLayout from '@/layouts/TxStatusLayout';
 import { router as routerConfig } from '@/configs/build';
 import dapps from '@/dapps/routes';
 
@@ -71,6 +72,11 @@ const router = [
     path: '/getting-started',
     name: 'GettingStarted',
     component: GettingStarted
+  },
+  {
+    path: '/tx-status',
+    name: 'TxStatusLayout',
+    component: TxStatusLayout
   },
   {
     path: '*',

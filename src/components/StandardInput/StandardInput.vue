@@ -13,6 +13,12 @@
 
       <div class="the-button-container">
         <div 
+          v-if="options.buttonRandom == true" 
+          class="the-button random"><i 
+            class="fa fa-refresh" 
+            aria-hidden="true"/>Random</div>
+
+        <div 
           v-if="options.buttonClear == true" 
           class="the-button clean">Clear</div>
 
@@ -30,7 +36,9 @@
       </div>
     </div>
 
-    <div class="input-container">
+    <div 
+      :class="borderClass" 
+      class="input-container">
       <input 
         v-if="!options.isTextarea"
         :value="options.value"
@@ -52,6 +60,21 @@
         class="right-input-text">{{ options.rightInputText }}</p>
     </div>
 
+    <div class="password-strength-indicator">
+      <div v-if="options.passwordStrength === '1'" >
+        <p class="strength weak">Weak strength password</p>
+        <p class="note">Your password needs to be minimum 10 charactors long.</p>
+      </div>
+      <div v-if="options.passwordStrength === '2'">
+        <p class="strength medium">Medium strength password</p>
+        <p class="note">Add numbers to make your password stronger.</p>
+      </div>
+      <div v-if="options.passwordStrength === '3'">
+        <p class="strength strong">Strong strength password</p>
+        <p class="note">Good! Your password is very strong.</p>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -71,16 +94,14 @@ export default {
     };
   },
   computed: {
-    buttonClass() {
-      switch (this.buttonstyle) {
-        case 'green':
-          return 'standard-button__green';
-        case 'green-border':
-          return 'standard-button__green-border';
-        case 'blue':
-          return 'standard-button__blue';
-        case 'blue-border':
-          return 'standard-button__blue-border';
+    borderClass() {
+      switch (this.options.passwordStrength) {
+        case '1':
+          return 'border-red';
+        case '2':
+          return 'border-blue';
+        case '3':
+          return 'border-green';
         default:
       }
     }

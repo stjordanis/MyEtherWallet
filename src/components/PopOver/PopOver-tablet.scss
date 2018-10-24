@@ -4,12 +4,13 @@
     margin: 0;
     padding: 0;
     //margin-left: 10px;
-    width: 21px;
-    height: 21px;
+    width: 15px;
+    height: 15px;
     position: relative;
   }
 
   .popover-button {
+    border-radius: 100%;
     position: absolute;
     background-color: transparent;
     border: 0;
@@ -26,8 +27,8 @@
     }
 
     img {
-      width: 21px;
-      height: 21px;
+      width: 15px;
+      height: 15px;
       margin: 0;
       padding: 0;
       display: block;

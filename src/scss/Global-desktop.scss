@@ -217,7 +217,7 @@
   .page-container {
     margin: 0 auto;
     max-width: 1024px;
-    padding: 0;
+    padding: 0 10px;
   }
 
   .page-container2 {
@@ -457,6 +457,11 @@
         flex: 1;
         text-align: center;
       }
+
+      .nav-item:nth-child(2) {
+        border-right: 2px solid $white;
+        border-left: 2px solid $white;
+      }
     }
   }
 
@@ -528,11 +533,11 @@
 
       // Rounded sliders
       &.round {
-        border-radius: 34px;
+        border-radius: 8px;
       }
 
       &.round::before {
-        border-radius: 100%;
+        border-radius: 6px;
       }
     }
 
@@ -590,11 +595,11 @@
 
       // Rounded sliders
       &.round {
-        border-radius: 34px;
+        border-radius: 50px;
       }
 
       &.round::before {
-        border-radius: 100%;
+        border-radius: 50px;
       }
     }
 
@@ -830,6 +835,13 @@
     }
   }
 
+  // *********************************************************************
+  // Bootstrap Modal
+  // *********************************************************************
+  .bootstrap-modal-wide .modal-dialog {
+    max-width: 700px;
+  }
+
   .modal-body {
     padding: 0 !important;
   }
@@ -873,5 +885,10 @@
   .language-menu-container .dropdown-menu {
     max-height: 400px;
     overflow-y: auto;
+  }
+
+  // Hover menu item background
+  .language-menu-container .dropdown-item.active {
+    background-color: #e0e0e0;
   }
 } //@media all and ( min-width: calc(#{$tablet-width} + 1px) )

@@ -10,27 +10,20 @@
 
   .top-title {
     @media all and (max-width: $tablet-width) {
-      align-items: flex-start;
-      flex-direction: column;
+      align-items: flex-end;
+      //flex-direction: column;
     }
 
     .title {
       h5 {
         line-height: 19px;
       }
-
-      @media all and (max-width: $tablet-width) {
-        margin-bottom: 30px;
-      }
     }
 
     .support {
       margin-left: auto;
-
-      @media all and (max-width: $tablet-width) {
-        margin-bottom: 20px;
-        margin-left: 0;
-      }
+      min-width: 200px;
+      text-align: right;
 
       a {
         align-items: center;

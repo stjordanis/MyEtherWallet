@@ -1,15 +1,33 @@
 @import '~@/scss/GlobalVariables';
 @media all and (min-width: calc(#{$mobile-width} + 1px)) and (max-width: $tablet-width) {
   .wrap {
-    .contents {
-      background-color: $light-grey-2;
-      padding: 10px;
+    display: grid;
+    grid-column-gap: 0;
+    grid-template-columns: 0 1fr;
+  }
 
-      .tx-contents {
-        .tokens {
-          border-radius: 5px;
-        }
+  .contents {
+    background-color: $light-grey-2;
+    padding: 10px;
+
+    .tx-contents {
+      display: grid;
+      grid-gap: 15px;
+      grid-template-areas: 'main main main';
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto;
+
+      .tokens {
+        border-radius: 5px;
       }
     }
+  }
+
+  .interface-info-block {
+    display: none;
+  }
+
+  .tokens {
+    display: none;
   }
 } // @media all and (min-width: calc(#{$mobile-width} + 1px)) and (max-width: $tablet-width)

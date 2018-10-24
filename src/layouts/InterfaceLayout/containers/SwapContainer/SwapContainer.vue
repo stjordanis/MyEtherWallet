@@ -4,10 +4,7 @@
 
     <div class="title-block">
       <interface-container-title :title="$t('common.swap')"/>
-      <div class="buy-eth">
-        <span>Buy ETH with</span>
-        <img :src="images.visaMaster">
-      </div>
+      <img src="@/assets/images/etc/bity.png">
     </div>
 
     <div class="send-form">
@@ -82,16 +79,26 @@
       </div>
     </div>
 
-    <div class="submit-button-container">
-      
-      <standard-button 
-        :options="buttonContinue"
-        @click.native="openSignedTXModal"
-      />
-
+    <div class="submit-button-container">      
+      <div class="bottom-button-container">
+        <standard-button 
+          :options="buttonContinue"
+          @click.native="openSignedTXModal"
+        />
+      </div>
+      <div class="buy-eth">
+        <span>Buy ETH with</span>
+        <img :src="images.visaMaster">
+      </div>
     </div>
 
-
+    
+    <standard-button 
+      :options="buttonContinue"
+      class="mobile-button"
+      @click.native="openSignedTXModal"
+    />
+  
 
 
 
@@ -126,7 +133,8 @@ export default {
         title: 'Continue',
         buttonStyle: 'green',
         rightArrow: true,
-        fullWidth: false
+        fullWidth: false,
+        isThisMobileBottomButton: true // Hide bottom button automatically
       },
       addressSelector: {
         title: 'To Address',
@@ -191,5 +199,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'SwapContainer.scss';
+@import 'SwapContainer-desktop.scss';
+@import 'SwapContainer-tablet.scss';
+@import 'SwapContainer-mobile.scss';
 </style>
