@@ -21,6 +21,10 @@ import StandardInput from '@/components/StandardInput';
 // Import Directives
 import ClickOutside from '@/directives/ClickOutside';
 import EnsResolver from '@/directives/EnsResolver';
+
+// Import Filters
+import Capitalize from '@/filters/Capitalize';
+import ConcatAddr from '@/filters/ConcatAddr';
 // etc
 import languages from './translations';
 import VueMq from 'vue-mq';
@@ -44,6 +48,10 @@ Vue.component('popover', PopOver);
 Vue.directive('click-outside', ClickOutside);
 Vue.directive('ens-resolver', EnsResolver);
 
+// Filters!!!
+Vue.filter('capitalize', Capitalize);
+Vue.filter('concatAddr', ConcatAddr);
+
 Vue.component('standard-button', StandardButton);
 Vue.component('standard-input', StandardInput);
 
@@ -61,12 +69,6 @@ const i18n = new VueI18n({
   fallbackLocale: 'en_US',
   messages: languages,
   silentTranslationWarn: true
-});
-
-Vue.filter('capitalize', function(value) {
-  if (!value) return '';
-  value = value.toString();
-  return value.charAt(0).toUpperCase() + value.slice(1);
 });
 
 /* eslint-disable no-new */
