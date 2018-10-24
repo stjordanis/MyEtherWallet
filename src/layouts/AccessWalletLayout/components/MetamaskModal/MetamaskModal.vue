@@ -31,14 +31,14 @@
         </label>
       </div>
       <div class="button-container">
-        <standard-button 
+        <standard-button
           v-if="accessMyWalletBtnDisabled"
           :options="buttonDisabled"
           @click.native="interact = true"
         />
         <router-link to="interface">
-          
-          <standard-button 
+
+          <standard-button
             v-if="!accessMyWalletBtnDisabled"
             :options="buttonAccessMyWallet"
             @click.native="interact = true"
@@ -68,6 +68,8 @@
 
 <script>
 import CustomerSupport from '@/components/CustomerSupport';
+import { Web3Wallet } from '@/wallets/software';
+import Web3 from 'web3';
 
 export default {
   components: {
@@ -99,7 +101,45 @@ export default {
     };
   },
   mounted() {
-    //this.$refs.metamask.show();
+    this.web3WalletExists = this.checkWeb3();
+  },
+  methods: {
+    reload() {
+      window.location.reload();
+    },
+    getWeb3Wallet() {
+      // NOTE: Uncomment code and debug when metamask's new version launches
+      // if (window.web3 === undefined) {
+      //   window.addEventListener('message', ({ data }) => {
+      //     if (data && data.type && data.type === 'ETHEREUM_PROVIDER_SUCCESS') {
+      //       window.web3 = new Web3(ethereum);
+      //     }
+      //   });
+      //   window.postMessage(
+      //     { type: 'ETHEREUM_PROVIDER_REQUEST', web3: true },
+      //     '*'
+      //   );
+      // }
+
+      if (this.checkWeb3() !== true) return;
+      new Web3(window.web3.currentProvider).eth
+        .getAccounts()
+        .then(accounts => {
+          if (!accounts.length) return (this.unlockWeb3Wallet = true);
+          const address = accounts[0];
+          const wallet = new Web3Wallet(address);
+          this.$store.dispatch('setWeb3Wallet', wallet);
+          this.$store.dispatch('setWeb3Instance', window.web3.currentProvider);
+          this.$router.push({ path: 'interface' });
+        })
+        .catch(() => {
+          return (this.web3WalletExists = false);
+        });
+    },
+    checkWeb3() {
+      if (window.web3 !== undefined) return true;
+      return false;
+    }
   }
 };
 </script>

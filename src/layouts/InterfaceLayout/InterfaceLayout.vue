@@ -83,7 +83,7 @@ export default {
     },
     address() {
       if (this.wallet !== null) {
-        return this.wallet.getAddressString();
+        return this.wallet.getChecksumAddressString();
       }
     },
     ...mapGetters({
