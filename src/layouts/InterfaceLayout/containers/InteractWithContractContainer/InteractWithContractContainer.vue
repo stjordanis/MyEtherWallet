@@ -5,33 +5,27 @@
       v-if="!interact"
       class="interact-div">
       <div class="send-form">
-        <div class="title-container">
-          <div class="title">
-            <h4>{{ $t('interface.contractAddr') }}</h4>
-            <div class="select-contract no-border">
-              <currency-picker
-                :currency="network.type.contracts"
-                :token="false"
-                page="interactWContract"
-                @selectedCurrency="selectedCurrency"/>
-            </div>
-          </div>
+        
+        <!--
+        <currency-picker
+          :currency="network.type.contracts"
+          :token="false"
+          page="interactWContract"
+          @selectedCurrency="selectedCurrency"/>
+        -->
+        
+        <div class="contract-selector">
+          <dropdown-contract-selector />
         </div>
-        <div class="the-form domain-name">
-          <input
-            v-ens-resolver="address"
-            v-model="address"
-            type="text"
-            placeholder="Enter Domain Name or Address" >
 
-          <i
-            :class="[validAddress && address !== ''? '': 'not-good' ,'fa fa-check-circle good-button']"
-            aria-hidden="true"
-            class="address-validation-check"/>
+        <div class="the-form domain-name">
+          <standard-input :options="inputContractAddress" />
+          
         </div>
       </div>
 
       <div class="send-form">
+        <!--
         <div class="title-container">
           <div class="title">
             <h4>{{ $t('interface.abiJsonInt') }}</h4>
@@ -41,7 +35,10 @@
             </div>
           </div>
         </div>
+        -->
         <div class="the-form domain-name">
+          <standard-input :options="inputAbiJsonInterface" />
+          <!--
           <textarea
             ref="abi"
             v-model="abi"
@@ -50,8 +47,25 @@
           <i
             :class="[validAbi && abi !== ''? '': 'not-good' ,'fa fa-check-circle good-button']"
             aria-hidden="true"/>
+          -->
         </div>
       </div>
+
+
+
+      <div class="button-container">
+        <standard-button 
+          :options="buttonContinue"
+          @click.native="interact = true"
+        />
+        <interface-bottom-text
+          :link-text="$t('interface.learnMore')"
+          :question="$t('interface.haveIssues')"
+          link="/"/>
+      </div>
+
+
+      <!--
       <div class="submit-button-container">
         <div
           :class="[(validAbi && validAddress) && (address !== '' && abi !== '')? '': 'disabled' ,'submit-button large-round-button-green-filled clickable']"
@@ -64,10 +78,53 @@
           :question="$t('interface.haveIssues')"
           link="/"/>
       </div>
+      -->
     </div>
     <div
       v-else
       class="interact-div">
+
+      <div class="form-container">
+        <p class="input-title">Read / Write Contract</p>
+        <div class="contract-form">
+          <div class="the-input">
+            <input 
+              type="text" 
+              name=""
+              placeholder="Type in Contract"
+            >
+
+            <p>Address:</p>
+          </div>
+          <div class="selector">
+            <dropdown-function-selector />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-container">
+        <standard-input :options="inputString" />
+      </div>
+
+      <div class="form-container">
+        <div class="button-container">
+          <standard-button 
+            :options="buttonBack"
+            @click.native="interact = true"
+          />
+          <standard-button 
+            :options="buttonRead"
+            @click.native="interact = true"
+          />
+        </div>
+
+        <interface-bottom-text
+          :link-text="$t('interface.learnMore')"
+          :question="$t('interface.haveIssues')"
+          link="/"/>
+      </div>
+
+      <!--
       <div class="send-form">
         <div class="title-container">
           <div class="title">
@@ -177,7 +234,7 @@
                 name=""
                 placeholder="0x00000000000000"
                 disabled >
-              <div v-if="resType === 'object'"> <!-- Have to separate them since v-for still loops when v-if is in the same line getting max stack -->
+              <div v-if="resType === 'object'"> 
                 <div
                   v-for="(res, idx) in Object.keys(result)"
                   :key="selectedMethod.outputs[idx].name !== ''? selectedMethod.outputs[idx].name + idx : selectedMethod.outputs[idx].type + idx">
@@ -194,6 +251,9 @@
           </div>
         </div>
       </div>
+
+
+      
       <div class="submit-button-container">
         <div class="buttons interact-buttons">
           <div
@@ -224,11 +284,10 @@
               class="fa fa-spinner fa-spin fa-lg"/>
           </div>
         </div>
-        <interface-bottom-text
-          :link-text="$t('interface.learnMore')"
-          :question="$t('interface.haveIssues')"
-          link="/"/>
       </div>
+      -->
+
+
     </div>
   </div>
 </template>
@@ -239,6 +298,8 @@ import CurrencyPicker from '../../components/CurrencyPicker';
 import InterfaceContainerTitle from '../../components/InterfaceContainerTitle';
 import InterfaceBottomText from '@/components/InterfaceBottomText';
 import { Misc } from '@/helpers';
+import DropDownContractSelector from '@/components/DropDownContractSelector';
+import DropDownFunctionSelector from '@/components/DropDownFunctionSelector';
 
 import * as unit from 'ethjs-unit';
 
@@ -246,10 +307,70 @@ export default {
   components: {
     'interface-container-title': InterfaceContainerTitle,
     'interface-bottom-text': InterfaceBottomText,
-    'currency-picker': CurrencyPicker
+    'currency-picker': CurrencyPicker,
+    'dropdown-contract-selector': DropDownContractSelector,
+    'dropdown-function-selector': DropDownFunctionSelector
   },
   data() {
     return {
+      buttonRead: {
+        title: 'Read',
+        buttonStyle: 'green',
+        rightArrow: false,
+        leftArrow: false,
+        fullWidth: false
+      },
+      buttonBack: {
+        title: 'Back',
+        buttonStyle: 'green-border',
+        rightArrow: false,
+        leftArrow: true,
+        fullWidth: false
+      },
+      buttonContinue: {
+        title: 'Continue',
+        buttonStyle: 'green',
+        rightArrow: true,
+        leftArrow: false,
+        fullWidth: false
+      },
+      inputContractAddress: {
+        title: 'Contract Address',
+        value: '',
+        type: 'text',
+        buttonCopy: false,
+        buttonClear: false,
+        buttonCustom: '',
+        topTextInfo: '',
+        popover: '',
+        placeHolder: 'Enter Domain Name or Address',
+        rightInputText: ''
+      },
+      inputAbiJsonInterface: {
+        title: 'ABI/JSON Interface',
+        value: '',
+        type: 'text',
+        buttonCopy: true,
+        buttonClear: true,
+        buttonCustom: '',
+        topTextInfo: '',
+        popover: '',
+        placeHolder: 'Enter Domain Name or Address',
+        rightInputText: '',
+        isTextarea: true
+      },
+      inputString: {
+        title: 'String',
+        value: '',
+        type: 'text',
+        buttonCopy: true,
+        buttonClear: true,
+        buttonCustom: '',
+        topTextInfo: '',
+        popover: '',
+        placeHolder: 'Enter String',
+        rightInputText: '256(UNIT)'
+      },
       abi: '',
       address: '',
       interact: false,

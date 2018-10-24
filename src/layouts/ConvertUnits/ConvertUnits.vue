@@ -149,5 +149,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'ConvertUnits.scss';
+@import 'ConvertUnits-desktop.scss';
+@import 'ConvertUnits-tablet.scss';
+@import 'ConvertUnits-mobile.scss';
 </style>

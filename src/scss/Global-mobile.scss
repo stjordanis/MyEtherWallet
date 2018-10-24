@@ -132,30 +132,6 @@
   // Custom Scrollbar
   // *********************************************************************
 
-  // width
-  ::-webkit-scrollbar {
-    border-radius: 10px;
-    width: 5px;
-  }
-
-  // Track
-  ::-webkit-scrollbar-track {
-    background: $light-grey-9;
-    border-radius: 10px;
-  }
-
-  // Handle
-  ::-webkit-scrollbar-thumb {
-    background: $dark-grey-8;
-    border-radius: 10px;
-  }
-
-  // Handle on hover
-  ::-webkit-scrollbar-thumb:hover {
-    background: $dark-grey-9;
-    border-radius: 10px;
-  }
-
   .no-border {
     .dropdown .dropdown-toggle {
       border: 0 !important;
@@ -569,6 +545,15 @@
   .language-menu-container {
     position: relative;
 
+    .dropdown-menu {
+      transform: initial !important;
+      position: fixed !important;
+      top: 150px !important;
+      left: 5px !important;
+      width: calc(100% - 10px);
+      z-index: 9999;
+    }
+
     .arrows {
       color: $text-color-4;
       font-size: 18px;
@@ -578,6 +563,10 @@
     }
 
     .language-menu {
+      .nav-link {
+        padding: 0;
+      }
+
       .dropdown-menu.show {
         max-height: 226px;
         overflow-y: scroll;
@@ -1232,6 +1221,13 @@
     border: 0;
     border-radius: 4px;
     padding: 13px 15px;
+  }
+
+  .custom-input-text-2 {
+    background-color: $background-color-1;
+    border: 0;
+    border-radius: 4px;
+    padding: 17px 15px;
   }
 
   .custom-select-1 {

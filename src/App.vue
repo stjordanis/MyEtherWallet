@@ -51,7 +51,9 @@ export default {
       account: {
         balance: 0
       },
-      Transactions: {},
+      Transactions: {
+        sidemenuOpen: false
+      },
       Networks: nodeList,
       Errors: {},
       online: true,
@@ -71,15 +73,8 @@ export default {
 
 <style lang="scss">
 @import 'App.scss';
+
 @import '~@/scss/Global-desktop';
 @import '~@/scss/Global-tablet';
 @import '~@/scss/Global-mobile';
-
-@import '~@/scss/CustomForms-desktop';
-@import '~@/scss/CustomForms-tablet';
-@import '~@/scss/CustomForms-mobile';
-
-@import '~@/scss/CustomModal-desktop';
-@import '~@/scss/CustomModal-tablet';
-@import '~@/scss/CustomModal-mobile';
 </style>

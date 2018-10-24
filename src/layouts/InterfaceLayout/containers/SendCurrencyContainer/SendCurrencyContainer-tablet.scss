@@ -1,0 +1,60 @@
+@import '~@/scss/GlobalVariables';
+@import '../InterfaceContainer';
+
+@media all and (min-width: calc(#{$mobile-width} + 1px)) and (max-width: $tablet-width) {
+  p,
+  h4 {
+    user-select: none;
+  }
+
+  .send-currency-container {
+    border-radius: 5px;
+    grid-area: main;
+    background: $background-color-white;
+    margin-bottom: 10px;
+
+    .send-form {
+      margin-top: 15px;
+
+      > .form-block > div:first-child {
+        margin-bottom: 35px;
+      }
+
+      .gas-amount,
+      .user-input {
+        position: relative;
+
+        input {
+          background-color: $background-color-1;
+          border: 0;
+          padding: 13px 15px;
+          width: 100%;
+        }
+
+        .good-button-container {
+          align-items: center;
+          display: flex;
+          position: absolute;
+          right: 10px;
+          top: 12px;
+
+          p {
+            color: $text--link-color;
+            margin-right: 10px;
+          }
+        }
+      }
+
+      .error-message-container {
+        p {
+          color: $text-color-red;
+          margin: 7px 0 0 15px;
+        }
+      }
+    } // .send-form
+
+    .tokens {
+      border-radius: 5px;
+    }
+  }
+} // @media all and (min-width: calc(#{$mobile-width} + 1px)) and (max-width: $tablet-width)

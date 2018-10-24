@@ -1,5 +1,9 @@
 @import '../InterfaceContainer';
 
+.the-form {
+  margin-top: 5px;
+}
+
 .swap-container {
   @extend %interface-container;
 

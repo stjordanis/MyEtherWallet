@@ -3,17 +3,24 @@
 
     <div
       :class="isPageOnTop == false ? 'active' : ''"
-      class="scrollup-container">
+      class="scrollup-container hidden">
       <scrollupbutton/>
     </div>
+
+    <div 
+      :class="mobileMenuOpen ? 'background-fill-active' : ''"
+      class="mobile-menu-background-fill" 
+      @click="mobileMenuOpen = !mobileMenuOpen"/>
 
     <div class="wrap">
       <div
         ref="fixedHeader"
-        :class="isPageOnTop == false ? 'tiny-header' : ''"
+        :class="isPageOnTop == false || mobileMenuOpen ? 'tiny-header' : ''"
         class="fixed-header">
         <div class="page-container">
-          <div class="header-container">
+          <div 
+            :class="isPageOnTop == false ? 'tiny-header-container' : ''" 
+            class="header-container">
             <router-link
               to="/"
               @click.native="scrollTop()">
@@ -25,7 +32,6 @@
               </div>
             </router-link>
             <div class="top-menu">
-
               <b-nav>
                 <b-nav-item
                   to="/"
@@ -93,17 +99,97 @@
               </b-nav>
 
             </div>
-            <div class="mobile-menu">
-              <div class="mobile-menu-button">
+            <div class="mobile-menu-buttons">
+              
+              <div 
+                v-if="!mobileMenuOpen"
+                class="menu-open"
+                @click="mobileMenuOpen = !mobileMenuOpen">
                 <div class="bar-1"/>
                 <div class="bar-2"/>
                 <div class="bar-3"/>
               </div>
+                
+              <div 
+                v-if="mobileMenuOpen" 
+                class="menu-close"
+                @click="mobileMenuOpen = !mobileMenuOpen">
+                <div/>
+                <div/>
+              </div>
+              
             </div>
 
           </div>
         </div>
+
+        <div 
+          :class="mobileMenuOpen ? 'mobile-menu-opened' : 'mobile-menu-closed'"
+          class="mobile-menu">
+          <b-nav>
+            <b-nav-item
+              to="/"
+              exact
+              @click="scrollTop(); mobileMenuOpen = false;"> {{ $t("header.home") }}</b-nav-item>
+            <b-nav-item 
+              to="/#about-mew" 
+              @click="mobileMenuOpen = false">{{ $t("header.about") }}</b-nav-item>
+            <b-nav-item 
+              to="/#faqs" 
+              @click="mobileMenuOpen = false">{{ $t("common.faqs") }}</b-nav-item>
+            <b-nav-item
+              v-show="online"
+              to="/#news"
+              @click="mobileMenuOpen = false">{{ $t("common.news") }}</b-nav-item>
+
+            <div class="language-menu-container">
+              <div class="arrows">
+                <i
+                  class="fa fa-angle-right"
+                  aria-hidden="true"/>
+              </div>
+              <b-nav-item-dropdown
+                class="language-menu"
+                extra-toggle-classes="nav-link-custom"
+                right>
+                <template slot="button-content">
+                  <div class="current-language-flag">
+                    <p>{{ currentName }}</p>
+                    <img
+                      :src="require(`@/assets/images/flags/${currentFlag}.svg`)"
+                      class="show">
+                    
+                  </div>
+                </template>
+                <b-dropdown-item
+                  v-for="language in supportedLanguages"
+                  :active="$root._i18n.locale === language.flag"
+                  :key="language.key"
+                  :data-flag-name="language.flag"
+                  @click="languageItemClicked">
+                  {{ language.name }}
+                </b-dropdown-item>
+              </b-nav-item-dropdown>
+            </div>
+
+            <b-nav-item-dropdown
+              v-if="wallet !== null"
+              right
+              no-caret
+              extra-toggle-classes="identicon-dropdown">
+              <template slot="button-content">
+                <blockie
+                  :address="wallet.getAddressString()"
+                  width="35px"
+                  height="35px"/>
+              </template>
+            </b-nav-item-dropdown>
+          </b-nav>
+        </div><!-- .mobile-menu -->
+
       </div>
+
+
     </div>
   </div>
 </template>
@@ -151,7 +237,8 @@ export default {
       online: true,
       currentName: 'English',
       currentFlag: 'en',
-      isPageOnTop: true
+      isPageOnTop: true,
+      mobileMenuOpen: false
     };
   },
   computed: {
@@ -208,6 +295,7 @@ export default {
       this.currentName = e.target.innerText.replace(/^\s+|\s+$|\s+(?=\s)/g, '');
       this.currentFlag = flag;
       store.set('locale', flag);
+      this.mobileMenuOpen = false;
     },
     scrollTop() {
       window.scrollTo(0, 0);
@@ -228,5 +316,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'HeaderContainer.scss';
+@import 'HeaderContainer-desktop.scss';
+@import 'HeaderContainer-tablet.scss';
+@import 'HeaderContainer-mobile.scss';
 </style>

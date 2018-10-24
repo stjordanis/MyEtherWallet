@@ -5,66 +5,22 @@
     <div class="send-form">
       <div class="form-block amount-to-address">
         <div class="amount">
-          <div class="title">
-            <h4>{{ $t("interface.sendTxAmount") }}</h4>
-            <p
-              class="title-button prevent-user-select"
-              @click="setBalanceToAmt">Entire Balance</p>
-          </div>
-          <currency-picker
-            :currency="tokensWithBalance"
-            :page="'sendEthAndTokens'"
-            :token="true"
-            @selectedCurrency="setSelectedCurrency"/>
-          <div class="the-form amount-number">
-            <input
-              v-model="amount"
-              type="number"
-              name=""
-              placeholder="Amount" >
-            <i
-              :class="[selectedCurrency.name === 'Ether' ? parsedBalance < amount ? 'not-good': '' : selectedCurrency.balance < amount ? 'not-good': '','fa fa-check-circle good-button']"
-              aria-hidden="true"/>
-          </div>
-          <div
-            v-if="selectedCurrency.name === 'Ether' ? amount > parsedBalance : selectedCurrency.balance < amount"
-            class="error-message-container">
-            <p>{{ $t('common.dontHaveEnough') }}</p>
-          </div>
+          <dropdown-coin-selector :options="coinSelector" />
         </div>
-        <div class="to-address">
-          <div class="title">
-            <h4>{{ $t("interface.sendTxToAddr") }}
-              <blockie
-                v-show="validAddress && address.length !== 0"
-                :address="address"
-                width="32px"
-                height="32px"
-                class="blockie-image"/>
-            </h4>
 
-            <p
-              class="copy-button prevent-user-select"
-              @click="copyToClipboard('address')">{{
-                $t('common.copy')
-              }}</p>
-          </div>
-          <div class="the-form address-block">
-            <textarea
-              v-ens-resolver="address"
-              ref="address"
-              v-model="address"
-              name="name"
-              autocomplete="off"/>
-            <i
-              :class="[validAddress && address.length !== 0 ? '':'not-good', 'fa fa-check-circle good-button']"
-              aria-hidden="true"/>
-          </div>
+        <div class="to-address">
+          <standard-input :options="inputAmount" />
         </div>
       </div>
     </div>
 
     <div class="send-form">
+
+      <div class="the-form address-block">
+        <dropdown-address-selector :options="addressSelector" />
+      </div>
+
+      <!--
       <div class="title-container">
         <div class="title">
           <div class="title-helper">
@@ -92,6 +48,7 @@
         </div>
       </div>
 
+
       <div class="the-form gas-amount">
         <input
           v-model="gasAmount"
@@ -105,9 +62,11 @@
             aria-hidden="true"/>
         </div>
       </div>
+      -->
+
     </div>
-    <div class="send-form advanced">
-      <div class="advanced-content">
+    <div class="send-form expending-block">
+      <div class="expending-block-content">
 
         <div class="toggle-button-container">
           <h4>{{ $t('common.advanced') }}</h4>
@@ -125,28 +84,23 @@
           </div>
         </div>
         <div
-          v-if="advancedExpend"
+          :class="advancedExpend ? 'expended' : 'unexpended'"
           class="input-container">
           <div class="the-form user-input">
-            <input
-              v-model="data"
-              type="text"
-              name=""
-              placeholder="Add Data (e.g. 0x7834f874g298hf298h234f)"
-              autocomplete="off" >
+
+            <standard-input :options="inputData" />
           </div>
           <div class="the-form user-input">
-            <input
-              v-model="gasLimit"
-              type="number"
-              name=""
-              placeholder="Gas Limit" >
+
+            <standard-input :options="inputGasLimit" />
           </div>
         </div>
       </div>
     </div>
 
-    <div class="submit-button-container">
+    <div
+      :class="onBottomOfPage ? 'hide-mobile-button' : ''"
+      class="submit-button-container">
       <div
         :class="[validAddress && address.length !== 0? '': 'disabled','submit-button large-round-button-green-filled']"
         @click="confirmationModalOpen">
@@ -162,19 +116,23 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import DropDownAddressSelector from '@/components/DropDownAddressSelector';
 import InterfaceContainerTitle from '../../components/InterfaceContainerTitle';
 import CurrencyPicker from '../../components/CurrencyPicker';
 import InterfaceBottomText from '@/components/InterfaceBottomText';
 import Blockie from '@/components/Blockie';
 import BigNumber from 'bignumber.js';
 import * as unit from 'ethjs-unit';
+import DropDownCoinSelector from '@/components/DropDownCoinSelector';
 
 export default {
   components: {
+    'dropdown-address-selector': DropDownAddressSelector,
     'interface-container-title': InterfaceContainerTitle,
     'interface-bottom-text': InterfaceBottomText,
     blockie: Blockie,
-    'currency-picker': CurrencyPicker
+    'currency-picker': CurrencyPicker,
+    'dropdown-coin-selector': DropDownCoinSelector
   },
   props: {
     tokensWithBalance: {
@@ -190,6 +148,51 @@ export default {
   },
   data() {
     return {
+      addressSelector: {
+        title: 'To Address',
+        buttonCopy: true,
+        buttonClear: true,
+        popover: 'What is address'
+      },
+      coinSelector: {
+        title: 'Type'
+      },
+      inputAmount: {
+        title: 'Amount',
+        value: '',
+        type: 'text',
+        buttonCopy: false,
+        buttonClear: false,
+        buttonCustom: 'Entire Balance',
+        topTextInfo: '',
+        popover: '',
+        placeHolder: '',
+        rightInputText: ''
+      },
+      inputData: {
+        title: '',
+        value: '',
+        type: 'text',
+        buttonCopy: false,
+        buttonClear: false,
+        buttonCustom: '',
+        topTextInfo: '',
+        popover: '',
+        placeHolder: 'Add Data (e.g. 0x98049238502957203957)',
+        rightInputText: ''
+      },
+      inputGasLimit: {
+        title: '',
+        value: '',
+        type: 'text',
+        buttonCopy: false,
+        buttonClear: false,
+        buttonCustom: '',
+        topTextInfo: '',
+        popover: '',
+        placeHolder: 'Gas Limit',
+        rightInputText: ''
+      },
       advancedExpend: false,
       validAddress: true,
       amount: 0,
@@ -204,7 +207,8 @@ export default {
       selectedCurrency: { symbol: 'ETH', name: 'Ethereum' },
       raw: {},
       signedTx: '',
-      resolvedAddress: ''
+      resolvedAddress: '',
+      onBottomOfPage: false
     };
   },
   computed: {
@@ -248,7 +252,23 @@ export default {
       this.parsedBalance = this.account.balance;
     }
   },
+  beforeMount() {
+    window.addEventListener('scroll', this.onPageScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.onPageScroll);
+  },
   methods: {
+    onPageScroll() {
+      if (
+        window.innerHeight + window.pageYOffset >=
+        document.body.offsetHeight
+      ) {
+        this.onBottomOfPage = true;
+      } else {
+        this.onBottomOfPage = false;
+      }
+    },
     copyToClipboard(ref) {
       this.$refs[ref].select();
       document.execCommand('copy');
@@ -374,5 +394,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'SendCurrencyContainer.scss';
+@import 'SendCurrencyContainer-desktop.scss';
+@import 'SendCurrencyContainer-tablet.scss';
+@import 'SendCurrencyContainer-mobile.scss';
 </style>

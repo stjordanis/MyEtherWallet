@@ -1,0 +1,15 @@
+@import '~@/scss/GlobalVariables';
+@media all and (min-width: calc(#{$mobile-width} + 1px)) and (max-width: $tablet-width) {
+  .wrap {
+    .contents {
+      background-color: $light-grey-2;
+      padding: 10px;
+
+      .tx-contents {
+        .tokens {
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+} // @media all and (min-width: calc(#{$mobile-width} + 1px)) and (max-width: $tablet-width)

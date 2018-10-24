@@ -3,18 +3,22 @@
     v-if="$store.state.wallet !== null"
     class="send-eth-and-tokens">
     <div class="wrap">
-      <div class="side-nav">
-        <interface-side-menu/>
+      <div
+
+        class="side-nav">
+        <interface-side-menu
+          :current-tab="currentTab"
+          :switch-tabs="switchTabs"/>
       </div>
       <div class="contents">
         <div class="tx-contents">
-          <div>
+          <div v-if="infoInterfaceOpen || $mq === 'lg'">
             <interface-address :address="address" />
           </div>
-          <div>
+          <div v-if="infoInterfaceOpen || $mq === 'lg'">
             <interface-balance :balance="balance"/>
           </div>
-          <div>
+          <div v-if="infoInterfaceOpen || $mq === 'lg'">
             <interface-network :block-number="blockNumber" />
           </div>
           <router-view
@@ -70,12 +74,13 @@ export default {
       tokens: [],
       receivedTokens: false,
       tokensWithBalance: [],
-      pollNetwork: () => {},
-      pollBlock: () => {},
-      pollAddress: () => {}
+      infoInterfaceOpen: false
     };
   },
   computed: {
+    sidemenuOpen() {
+      return this.$store.state.Transactions.sidemenuOpen;
+    },
     address() {
       if (this.wallet !== null) {
         return this.wallet.getAddressString();
@@ -362,5 +367,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'InterfaceLayout.scss';
+@import 'InterfaceLayout-desktop.scss';
+@import 'InterfaceLayout-tablet.scss';
+@import 'InterfaceLayout-mobile.scss';
 </style>

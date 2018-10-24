@@ -1,0 +1,42 @@
+@import '~@/scss/GlobalVariables';
+
+.metamask-modal-content {
+  padding: 40px;
+}
+
+.button-container {
+  margin-bottom: 30px;
+  button {
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+.install-modal-metamask {
+  .modal-multi-icons {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+
+    img {
+      padding: 0 13px;
+    }
+
+    .logo-small {
+      max-height: 90px;
+    }
+  }
+
+  .content-container {
+    margin-bottom: 30px;
+
+    h4 {
+      font-weight: 500;
+      line-height: 30px;
+      font-size: 20px;
+      margin: 0 auto;
+      max-width: 300px;
+    }
+  }
+}

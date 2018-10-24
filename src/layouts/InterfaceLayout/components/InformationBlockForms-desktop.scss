@@ -1,0 +1,51 @@
+@import '~@/scss/GlobalVariables';
+@media all and (min-width: calc(#{$tablet-width} + 1px)) {
+  //-----------------------------
+  // Page wrap
+  //-----------------------------
+
+  .page-wrap {
+    padding: 60px;
+  }
+
+  //-----------------------------
+  // Common form container style
+  //-----------------------------
+
+  .form-container {
+    margin-bottom: 40px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  //-----------------------------
+  // Single container
+  //-----------------------------
+
+  .form-container.single--1 {
+    display: block;
+  }
+
+  //-----------------------------
+  // Grid container
+  //-----------------------------
+
+  .form-container.grid--1 {
+    display: grid;
+    grid-column-gap: 7px;
+    grid-template-columns: 2fr 3fr;
+  }
+
+  //-----------------------------
+  // Button container
+  //-----------------------------
+
+  .page--bottom-button-container {
+    margin-top: 50px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+  }
+} // @media all and (min-width: calc(#{$tablet-width} + 1px))
