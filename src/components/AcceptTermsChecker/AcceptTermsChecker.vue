@@ -3,7 +3,7 @@
     <label class="checkbox-container">{{ $t("accessWallet.acceptTerms") }} <a href="/">{{ $t("common.terms") }}</a>.
       <input
         type="checkbox"
-        @click="accessMyWalletBtnDisabled = !accessMyWalletBtnDisabled" >
+        @click="termsAccepted" >
       <span class="checkmark"/>
     </label>
   </div>
@@ -20,7 +20,14 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      accessMyWalletBtnDisabled: false
+    };
+  },
+  methods: {
+    termsAccepted() {
+      this.$emit('click');
+    }
   }
 };
 </script>

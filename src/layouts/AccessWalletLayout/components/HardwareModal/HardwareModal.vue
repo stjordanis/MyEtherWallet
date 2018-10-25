@@ -60,26 +60,38 @@
       </div>
 
       <div class="modal-button-container">
-        <standard-button 
-          :options="buttonConnecting"
-        />
-        <standard-button 
-          :options="buttonConnectYourDevice"
-        />
-      </div>
-
-
-      <div 
-        v-if="false" 
-        class="button-container">
-        <!--<div class="mid-round-button-green-filled connection-button waiting-for-connection" v-on:click="networkAndAddressOpen">-->
-        <!--<div class="mid-round-button-green-filled connection-button waiting-for-connection" @click="continueAccess">-->
-        <div
-          :class="[selected !== ''? 'enabled': 'disabled','mid-round-button-green-filled']"
-          @click="continueAccess">
+        <standard-button
+          :show="selected === ''"
+          :button-style="'disabled'"
+        >
           {{ $t("accessWallet.accessDeviceAddresses") }}
-        </div>
+        </standard-button>
+        <!--<standard-button-->
+          <!--:button-style="'disabled'"-->
+        <!--&gt;-->
+          <!--Please connect your device-->
+        <!--</standard-button>-->
+        <standard-button
+          @click="continueAccess"
+          :show="selected !== ''"
+          :button-style="'enabled'"
+        >
+          Continue
+        </standard-button>
       </div>
+
+
+      <!--<div-->
+        <!--v-if="false"-->
+        <!--class="button-container">-->
+        <!--&lt;!&ndash;<div class="mid-round-button-green-filled connection-button waiting-for-connection" v-on:click="networkAndAddressOpen">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="mid-round-button-green-filled connection-button waiting-for-connection" @click="continueAccess">&ndash;&gt;-->
+        <!--<div-->
+          <!--:class="[selected !== ''? 'enabled': 'disabled','mid-round-button-green-filled']"-->
+          <!--@click="continueAccess">-->
+          <!--{{ $t("accessWallet.accessDeviceAddresses") }}-->
+        <!--</div>-->
+      <!--</div>-->
 
       <div class="support-container">
         <customer-support/>
@@ -112,22 +124,22 @@ export default {
   },
   data() {
     return {
-      buttonConnecting: {
-        title: 'Connecting...',
-        buttonStyle: 'green-noclick',
-        rightArrow: false,
-        leftArrow: false,
-        fullWidth: true,
-        loadingIcon: true
-      },
-      buttonConnectYourDevice: {
-        title: 'Please connect your device',
-        buttonStyle: 'grey',
-        rightArrow: false,
-        leftArrow: false,
-        fullWidth: true,
-        loadingIcon: false
-      },
+      // buttonConnecting: {
+      //   title: 'Connecting...',
+      //   buttonStyle: 'green-noclick',
+      //   rightArrow: false,
+      //   leftArrow: false,
+      //   fullWidth: true,
+      //   loadingIcon: true
+      // },
+      // buttonConnectYourDevice: {
+      //   title: 'Please connect your device',
+      //   buttonStyle: 'grey',
+      //   rightArrow: false,
+      //   leftArrow: false,
+      //   fullWidth: true,
+      //   loadingIcon: false
+      // },
       selected: '',
       mayNotBeAttached: false
     };

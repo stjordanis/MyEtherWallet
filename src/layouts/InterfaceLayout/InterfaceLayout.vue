@@ -6,9 +6,7 @@
       <div
 
         class="side-nav">
-        <interface-side-menu
-          :current-tab="currentTab"
-          :switch-tabs="switchTabs"/>
+        <interface-side-menu/>
       </div>
       <div class="contents">
         <div class="tx-contents">
@@ -74,7 +72,10 @@ export default {
       tokens: [],
       receivedTokens: false,
       tokensWithBalance: [],
-      infoInterfaceOpen: false
+      infoInterfaceOpen: false,
+      pollNetwork: () => {},
+      pollBlock: () => {},
+      pollAddress: () => {}
     };
   },
   computed: {
@@ -83,7 +84,7 @@ export default {
     },
     address() {
       if (this.wallet !== null) {
-        return this.wallet.getChecksumAddressString();
+        return this.wallet.getAddressString();
       }
     },
     ...mapGetters({

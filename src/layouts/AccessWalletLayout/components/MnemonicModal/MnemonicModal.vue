@@ -42,12 +42,15 @@
       </div>
 
       <div class="button-container">
-        <standard-button 
-          :options="buttonContinue"
-        />
-        <standard-button 
-          :options="buttonDisabled"
-        />
+        <standard-button
+          @click="openPasswordModal"
+          :buttonStyle="'green'"
+        >
+          {{ $t("common.continue") }}
+        </standard-button>
+        <!--<standard-button-->
+          <!--:options="buttonDisabled"-->
+        <!--/>-->
 
         <!--
         <b-btn

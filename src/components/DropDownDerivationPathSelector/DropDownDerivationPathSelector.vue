@@ -1,18 +1,18 @@
 <template>
   <div class="drop-down-coin-selector">
-    <div 
-      v-if="options.title" 
-      class="form-title-container">
-      <div class="title">{{ options.title }}</div>
-    </div>
+    <!--<div-->
+      <!--v-if="selectedPath"-->
+      <!--class="form-title-container">-->
+      <!--<div class="title">{{selectedPath}}</div>-->
+    <!--</div>-->
 
     <div class="coin-selector-click-safe-zone">
       <div
         :class="dropdownOpen ? 'dropdown-open' : ''"
-        class="dropdown-input-box" 
+        class="dropdown-input-box"
         @click="openDropdownFocustToSearchInput">
         <div class="selected-network">
-          Network
+          {{selectedPath}}
         </div>
         <div
           class="dropdown-open-button">
@@ -29,14 +29,58 @@
       <div
         :class="dropdownOpen ? 'show-dropdown' : ''"
         class="dropdown-list-box">
-        <ul>
-          <li>m/44'/60'/0'/0</li>
-          <li>m/44'/60'/0'/0</li>
-          <li>m/44'/60'/0'/0</li>
-          <li>m/44'/60'/0'/0</li>
-          <li>m/44'/60'/0'/0</li>
 
-          <li class="custom-path-button">Add Custom Path</li>
+
+<!--        <div class="dropdown-button-container">
+          <b-dropdown
+            id="hd-derivation-path"
+            :text="selectedPath"
+            class="dropdown-button-2">
+            <b-dropdown-item
+              v-for="(val, key) in availablePaths"
+              v-if="key !== 'default'"
+              :class="selectedPath === val.path ? 'active' : ''"
+              :key="'base' + key"
+              @click="changePath(key)">
+              {{ val.path }}
+            </b-dropdown-item>
+            <b-dropdown-divider/>
+            <b-dropdown-item>
+              {{ $t('accessWallet.customPaths') }}
+            </b-dropdown-item>
+            <b-dropdown-item
+              v-for="(val, key) in customPaths"
+              :class="selectedPath.dpath === val.dpath ? 'active' : ''"
+              :key="key"
+              @click="changePath(key)">
+              {{ val.dpath }}
+            </b-dropdown-item>
+            <b-dropdown-item @click="showCustomPathInput">
+              {{ $t('accessWallet.addCustomPath') }}
+            </b-dropdown-item>
+          </b-dropdown>
+        </div>-->
+
+
+        <ul>
+          <li v-for="(val, key) in availablePaths"
+               v-if="key !== 'default'"
+               :class="selectedPath === val.path ? 'active' : ''"
+               :key="'base' + key"
+               @click="changePath(key)">
+            {{ val.path }}
+          </li>
+          <li><div class="line"></div></li>
+          <li> {{ $t('accessWallet.customPaths') }}</li>
+          <li v-for="(val, key) in customPaths"
+              :class="selectedPath.dpath === val.dpath ? 'active' : ''"
+              :key="key"
+              @click="changePath(key)">
+            {{ val.dpath }}
+          </li>
+
+          <li @click="showCustomPathInput"
+              class="custom-path-button">{{ $t('accessWallet.addCustomPath') }}</li>
         </ul>
       </div>
     </div>
@@ -47,6 +91,22 @@
 <script>
 export default {
   props: {
+    selectedPath:{
+      type: String,
+      default: ''
+    },
+    availablePaths: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    customPaths: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    },
     options: {
       type: Object,
       default: function() {
@@ -67,6 +127,13 @@ export default {
     document.removeEventListener('click', this.clickEvent, false);
   },
   methods: {
+    changePath(key){
+      this.$emit('changePath', key)
+      this.dropdownOpen = !this.dropdownOpen;
+    },
+    showCustomPathInput(){
+      this.$emit('showCustomPathInput')
+    },
     openDropdownFocustToSearchInput: function() {
       // Focus user input to the seach input.
       this.dropdownOpen = !this.dropdownOpen;
