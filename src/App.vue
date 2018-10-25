@@ -36,6 +36,8 @@ export default {
         hostUrl.pathname
       }`
     );
+    const transactions =
+      store.get('transactions') !== undefined ? store.get('transactions') : {};
     const notifications =
       store.get('notifications') !== undefined
         ? store.get('notifications')
@@ -51,16 +53,15 @@ export default {
       account: {
         balance: 0
       },
-      Transactions: {
-        sidemenuOpen: false
-      },
+      transactions: transactions,
       Networks: nodeList,
       Errors: {},
       online: true,
       notifications: notifications,
       gasPrice: gasPrice,
       ens:
-        network.type.ensResolver !== '' ? new ENS(newWeb3.currentProvider) : {}
+        network.type.ensResolver !== '' ? new ENS(newWeb3.currentProvider) : {},
+      ethDonationAddress: '0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D'
     };
     if (store.get('notifications') === undefined)
       store.set('notifications', {});

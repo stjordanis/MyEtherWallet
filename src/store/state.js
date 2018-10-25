@@ -23,16 +23,15 @@ const state = {
   account: {
     balance: 0
   },
-  Transactions: {
-    sidemenuOpen: false
-  },
+  transactions: {},
   Networks: nodeList,
   Errors: {},
   online: true,
   customPaths: {},
   notifications: {},
   gasPrice: 41,
-  ens: {}
+  ens: {},
+  ethDonationAddress: '0xDECAF9CD2367cdbb726E904cD6397eDFcAe6068D'
 };
 
 export default state;

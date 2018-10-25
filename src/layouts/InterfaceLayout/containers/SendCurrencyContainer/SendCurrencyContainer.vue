@@ -7,6 +7,29 @@
         <div class="form-block amount-to-address">
           <div class="amount">
             <dropdown-coin-selector :options="coinSelector" />
+<!--    <div class="send-form">
+      <div class="form-block amount-to-address">
+        <div class="amount">
+          <div class="title">
+            <h4>{{ $t("interface.sendTxAmount") }}</h4>
+            <p
+              class="title-button prevent-user-select"
+              @click="setBalanceToAmt">Entire Balance</p>
+          </div>
+          <currency-picker
+            :currency="tokensWithBalance"
+            :page="'sendEthAndTokens'"
+            :token="true"
+            @selectedCurrency="setSelectedCurrency"/>
+          <div class="the-form amount-number">
+            <input
+              v-model="amount"
+              type="number"
+              name=""
+              placeholder="Amount" >
+            <i
+              :class="[selectedCurrency.name === 'Ether' ? parsedBalance < amount ? 'not-good': '' : selectedCurrency.balance < amount ? 'not-good': '','fa fa-check-circle good-button']"
+              aria-hidden="true"/>-->
           </div>
 
           <div class="to-address">
@@ -290,11 +313,7 @@ export default {
             ? 0
             : unit.toWei(this.amount, 'ether')
           : 0,
-        to: isEth
-          ? this.resolvedAddress !== ''
-            ? this.resolvedAddress
-            : this.address
-          : this.selectedCurrency.addr,
+        to: isEth ? this.address : this.selectedCurrency.addr,
         data: this.data,
         chainId: this.$store.state.network.type.chainID || 1
       };
