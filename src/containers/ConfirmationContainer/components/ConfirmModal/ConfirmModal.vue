@@ -72,11 +72,11 @@
         <div class="submit-button-container">
           <div class="flex-center-align">
             <div class="button-with-helper">
-
-              <standard-button 
-                :options="buttonContinue"
-                @click.native="continueAccess"
-              />
+              <standard-button
+                ref="ConfirmAndSendButton"
+                :disabled="signedTx !== ''"
+                @click="sendTx"
+              >Confirm and Send</standard-button>
 
               <!--
               <div
@@ -173,13 +173,6 @@ export default {
   },
   data() {
     return {
-      buttonContinue: {
-        title: 'Confirm and Send',
-        buttonStyle: 'green',
-        rightArrow: false,
-        leftArrow: false,
-        fullWidth: true
-      },
       modalDetailInformation: false,
       transactionSigned: false,
       unit,

@@ -43,7 +43,7 @@
     <!--=== MEW custom form ========================================-->
 
     <div class="button-container">
-      <standard-button 
+      <standard-button
         :options="buttonNext"
         :disabled="value.length === 0 && value.length < 9 && strength === ''"
         @click.prevent="switcher(param)"

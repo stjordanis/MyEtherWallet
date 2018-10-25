@@ -24,10 +24,11 @@
         </label>
       </div>
       <div class="button-container">
-        <standard-button 
-          :options="buttonInstallMetaMask"
-          @click.native="metamaskmodal"
-        />
+        <standard-button
+          @click="metamaskmodal"
+        >
+          {{ $t("accessWallet.installMetamask") }}
+        </standard-button>
 
         <!--
         <b-btn

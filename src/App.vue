@@ -57,6 +57,7 @@ export default {
       Networks: nodeList,
       Errors: {},
       online: true,
+      sidemenuOpen: false,
       notifications: notifications,
       gasPrice: gasPrice,
       ens:

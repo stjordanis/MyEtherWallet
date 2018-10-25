@@ -53,25 +53,13 @@
 
 
       <div class="modal-button-container">
-        <standard-button 
-          v-if="selected === ''"
-          :options="buttonDisabled"
-        />
-        <standard-button 
-          v-if="selected !== ''"
-          :options="buttonContinue"
-          @click.native="continueAccess"
-        />
+        <standard-button
+          :disabled="selected === ''"
+          @click="continueAccess"
+        >{{ $t("common.continue") }}</standard-button>
 
-        <!--
-        <b-btn
-          :class="[selected !== ''? 'enabled': 'disabled','mid-round-button-green-filled']"
-          @click="continueAccess">
-          {{ $t("common.continue") }}
-        </b-btn>
-      -->
       </div>
-      
+
       <div class="support-container">
         <customer-support/>
       </div>
@@ -106,20 +94,6 @@ export default {
   },
   data() {
     return {
-      buttonDisabled: {
-        title: 'Continue',
-        buttonStyle: 'grey',
-        rightArrow: false,
-        leftArrow: false,
-        fullWidth: true
-      },
-      buttonContinue: {
-        title: 'Continue',
-        buttonStyle: 'green',
-        rightArrow: false,
-        leftArrow: false,
-        fullWidth: true
-      },
       file: '',
       selected: ''
     };

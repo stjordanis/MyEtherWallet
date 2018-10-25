@@ -18,6 +18,9 @@ const online = state => {
   return state.online;
 };
 
+const sidemenuOpen = state => {
+  return state.sidemenuOpen;
+}
 const transactions = state => {
   return state.transactions;
 };
@@ -33,5 +36,6 @@ export default {
   notifications,
   online,
   transactions,
+  sidemenuOpen,
   wallet
 };

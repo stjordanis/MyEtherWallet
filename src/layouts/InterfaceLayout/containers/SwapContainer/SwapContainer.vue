@@ -787,5 +787,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'SwapContainer.scss';
+@import 'SwapContainer-desktop.scss';
+@import 'SwapContainer-tablet.scss';
+@import 'SwapContainer-mobile.scss';
 </style>

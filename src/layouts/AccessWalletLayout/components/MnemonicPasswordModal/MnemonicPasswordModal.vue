@@ -25,18 +25,18 @@
         <p
           v-show="error !== ''"
           class="error"> {{ error }} </p>
+        <standard-button
+          @click="unlockWallet">
+          {{ $t("common.continue") }}
+        </standard-button>
 
-        <standard-button 
-          :options="buttonContinue"
-        />
-
-        <button
+<!--        <button
           v-if="false"
           class="submit-button large-round-button-green-filled"
           type="submit"
           @click.prevent="unlockWallet" >
           {{ $t("common.continue") }}
-        </button>
+        </button>-->
       </form>
     </div>
   </b-modal>

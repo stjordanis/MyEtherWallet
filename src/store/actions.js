@@ -115,6 +115,10 @@ const setENS = function({ commit }, ens) {
   commit('SET_ENS', ens);
 };
 
+const toggleSideMenu = function({ commit }) {
+  commit('TOGGLE_SIDE_MENU');
+};
+
 const updateNotification = function({ commit, state }, val) {
   // address, index, object
   const address = web3.utils.toChecksumAddress(val[0]);
@@ -154,6 +158,7 @@ export default {
   setENS,
   setWeb3Instance,
   switchNetwork,
+  toggleSideMenu,
   updateNotification,
   updateTransaction
 };

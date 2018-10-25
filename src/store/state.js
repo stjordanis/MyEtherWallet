@@ -27,6 +27,7 @@ const state = {
   Networks: nodeList,
   Errors: {},
   online: true,
+  sidemenuOpen: false,
   customPaths: {},
   notifications: {},
   gasPrice: 41,

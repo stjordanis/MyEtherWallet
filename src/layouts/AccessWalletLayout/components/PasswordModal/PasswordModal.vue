@@ -32,14 +32,11 @@
           class="error"> {{ error }} </p>
 
         <div class="password-modal-button-container">
-          <standard-button 
-            :options="buttonAccessMyWallet"
-            @click.native="unlockWallet"
-          />
-          <standard-button 
-            :options="buttonDisabled"
-            @click.native="unlockWallet"
-          />
+          <standard-button
+            :disabled="password === '' && password.length === 0 && password.length < 9"
+            @click="unlockWallet">
+            {{ $t("accessWallet.unlock") }}
+          </standard-button>
         </div>
 
 

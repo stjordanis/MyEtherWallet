@@ -9,10 +9,11 @@
     <div class="standard-modal-container">
       <p class="title">Success</p>
       <p class="text">Your transaction has been sent successfully.</p>
-      <standard-button 
-        :options="buttonSuccess"
-        @click.native="hideModal"
-      />
+      <standard-button
+        ref="ConfirmAndSendButton"
+        @click="hideModal">
+        Okay
+      </standard-button>
     </div>
 
   </b-modal>

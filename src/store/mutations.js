@@ -61,6 +61,10 @@ const SWITCH_NETWORK = function(state, networkObj) {
   store.set('network', networkObj);
 };
 
+const TOGGLE_SIDE_MENU = function(state){
+  state.sidemenuOpen = !state.sidemenuOpen;
+}
+
 const UPDATE_NOTIFICATION = function(state, newNotif) {
   state.notifications = newNotif;
   store.set('notifications', newNotif);
@@ -85,6 +89,7 @@ export default {
   SET_WEB3_PROVIDER_WALLET,
   SET_WEB3_INSTANCE,
   SWITCH_NETWORK,
+  TOGGLE_SIDE_MENU,
   UPDATE_NOTIFICATION,
   UPDATE_SWAP_TRANSACTION
 };

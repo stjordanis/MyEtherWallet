@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     sidemenuOpen() {
-      return this.$store.state.Transactions.sidemenuOpen;
+      return this.sidemenuOpen;
     },
     address() {
       if (this.wallet !== null) {
@@ -89,6 +89,7 @@ export default {
     },
     ...mapGetters({
       network: 'network',
+      sidemenuOpen: 'sidemenuOpen',
       wallet: 'wallet'
     })
   },

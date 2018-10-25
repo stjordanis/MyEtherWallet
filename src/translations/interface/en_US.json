@@ -41,7 +41,7 @@
   "txSideMenuContract": "Contract",
   "txSideMenuMessage": "Message",
   "ethNodeProvidedBy": "The ETH node is provided by",
-  "etherscanIO": "Etherscan.io"
+  "etherscanIO": "Etherscan.io",
   "belowMinSwap": "Below Minimum",
   "aboveMaxSwap": "Above Maximum"
 }

@@ -25,20 +25,25 @@
         <p
           v-show="error !== ''"
           class="error"> {{ error }} </p>
-        
+
 
         <div class="terms-container">
-          <accept-terms-checker/>
+          <accept-terms-checker @click="accessMyWalletBtnDisabled = !accessMyWalletBtnDisabled"/>
         </div>
 
 
         <div class="the-button-container">
-          <standard-button 
-            :options="buttonUnlock"
-          />
-          <standard-button 
-            :options="buttonDisabled"
-          />
+          <standard-button
+            :disabled="accessMyWalletBtnDisabled"
+            @click="unlockWallet">
+            {{ $t("accessWallet.unlock") }} {{ hardwareBrand }}
+          </standard-button>
+          <!--<standard-button -->
+            <!--:options="buttonUnlock"-->
+          <!--/>-->
+          <!--<standard-button -->
+            <!--:options="buttonDisabled"-->
+          <!--/>-->
         </div>
         <!--
         <button
@@ -89,6 +94,7 @@ export default {
         leftArrow: false,
         fullWidth: true
       },
+      accessMyWalletBtnDisabled: true,
       show: false,
       password: '',
       error: ''

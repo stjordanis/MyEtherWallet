@@ -10,8 +10,8 @@
         <div class="tx-info">
           <div class="tx-data tx-from">
             <div class="amount-box">
-              <img 
-                class="currency-icon" 
+              <img
+                class="currency-icon"
                 src="~@/assets/images/currency/eth.svg">
               <h3>1.00000 <span>ETH</span></h3>
             </div>
@@ -27,8 +27,8 @@
           <div
             class="tx-data tx-to">
             <div class="amount-box">
-              <img 
-                class="currency-icon" 
+              <img
+                class="currency-icon"
                 src="~@/assets/images/currency/btc.svg">
               <h3>0.006345 <span>BTC</span></h3>
             </div>
@@ -77,11 +77,12 @@
         <div class="submit-button-container">
           <div class="flex-center-align">
             <div class="button-with-helper">
+              <standard-button
+                ref="ConfirmAndSendButton"
+                :disabled="signedTx !== ''"
+                @click="sendTx"
+              >Confirm and Send</standard-button>
 
-              <standard-button 
-                :options="buttonContinue"
-                @click.native="continueAccess"
-              />
 
               <!--
               <div

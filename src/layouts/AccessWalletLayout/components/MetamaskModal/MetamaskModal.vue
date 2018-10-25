@@ -5,7 +5,7 @@
     hide-footer
     class="bootstrap-modal modal-metamask"
     centered>
-    <div class="metamask-modal-content">
+    <div v-if="web3WalletExists" class="metamask-modal-content">
       <div class="modal-multi-icons">
         <img
           class="icon"
@@ -18,8 +18,11 @@
           src="~@/assets/images/logo-small.png">
       </div>
       <div class="d-block content-container text-center">
-        <h4>
+        <h4 v-show="!unlockWeb3Wallet">
           {{ $t("accessWallet.metaMaskModalDesc") }}
+        </h4>
+        <h4 v-show="unlockWeb3Wallet">
+          {{ $t("accessWallet.unlockMetamaskWallet") }}
         </h4>
       </div>
       <div class="accept-terms">
@@ -31,38 +34,58 @@
         </label>
       </div>
       <div class="button-container">
-        <standard-button
-          v-if="accessMyWalletBtnDisabled"
-          :options="buttonDisabled"
-          @click.native="interact = true"
-        />
-        <router-link to="interface">
-
-          <standard-button
-            v-if="!accessMyWalletBtnDisabled"
-            :options="buttonAccessMyWallet"
-            @click.native="interact = true"
-          />
-
-          <!--
-          <b-btn
-            :disabled="accessMyWalletBtnDisabled"
-            class="mid-round-button-green-filled close-button">
-            {{ $t("accessWallet.accessMyWallet") }}
-          </b-btn>
-        -->
-        </router-link>
-
-        <!--
         <b-btn
+          v-show="!unlockWeb3Wallet"
           :disabled="accessMyWalletBtnDisabled"
-          class="mid-round-button-green-filled close-button">
+          class="mid-round-button-green-filled close-button"
+          @click="getWeb3Wallet">
           {{ $t("accessWallet.accessMyWallet") }}
         </b-btn>
-      -->
+        <b-btn
+          v-show="unlockWeb3Wallet"
+          class="mid-round-button-green-filled close-button"
+          @click="getWeb3Wallet"
+        >
+
+          {{ $t("accessWallet.tryAgain") }}
+        </b-btn>
+      </div>
+    </div>
+    <div v-else>
+      <div class="modal-multi-icons">
+        <img
+          class="icon"
+          src="~@/assets/images/icons/button-metamask-fox.svg">
+      </div>
+      <div class="d-block content-container text-center">
+        <h4>
+          {{ $t("accessWallet.installMetaMaskModalDesc") }}
+        </h4>
+      </div>
+      <div class="accept-terms hidden">
+        <label class="checkbox-container">{{ $t("accessWallet.acceptTerms") }} <a href="/">{{ $t("common.terms") }}</a>.
+          <input type="checkbox" >
+          <span class="checkmark"/>
+        </label>
+      </div>
+      <div class="button-container">
+        <a
+          v-show="!refreshPage"
+          href="https://metamask.io/"
+          target="_blank"
+          class="mid-round-button-green-filled close-button"
+          @click="refreshPage=true">
+          {{ $t("accessWallet.installMetamask") }}
+        </a>
+        <b-btn
+          v-show="refreshPage"
+          class="mid-round-button-green-filled close-button"
+          @click="reload">
+          Refresh
+        </b-btn>
+      </div>
       </div>
       <customer-support/>
-    </div><!-- .metamask-modal-content -->
   </b-modal>
 </template>
 
@@ -83,21 +106,10 @@ export default {
   },
   data() {
     return {
-      buttonDisabled: {
-        title: 'Access My Wallet',
-        buttonStyle: 'grey',
-        rightArrow: false,
-        leftArrow: false,
-        fullWidth: true
-      },
-      buttonAccessMyWallet: {
-        title: 'Access My Wallet',
-        buttonStyle: 'green',
-        rightArrow: false,
-        leftArrow: false,
-        fullWidth: true
-      },
-      accessMyWalletBtnDisabled: true
+      accessMyWalletBtnDisabled: true,
+      unlockWeb3Wallet: false,
+      web3WalletExists: false,
+      refreshPage: false
     };
   },
   mounted() {

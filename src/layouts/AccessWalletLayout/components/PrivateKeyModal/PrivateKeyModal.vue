@@ -5,6 +5,7 @@
     hide-footer
     class="bootstrap-modal modal-software"
     centered>
+    <div class="the-content">
     <form class="private-key-form">
       <div class="input-container">
         <input
@@ -13,14 +14,12 @@
           name="PrivateKey"
           autocomplete="off">
       </div>
-      <button
-        :disabled=" privateKey === '' && privateKey.length === 0 && privateKey.length < 9"
-        class="submit-button large-round-button-green-filled"
-        type="submit"
-        @click.prevent="unlockWallet">
-        {{ $t("accessWallet.unlock") }}
-      </button>
+      <standard-button
+        :disabled="privateKey === '' && privateKey.length === 0 && privateKey.length < 9"
+        @click="unlockWallet"
+      >{{ $t("accessWallet.unlock") }}</standard-button>
     </form>
+    </div>
   </b-modal>
 </template>
 

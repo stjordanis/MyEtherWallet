@@ -6,6 +6,7 @@
     class="bootstrap-modal padding-20 modal-metamask"
     centered>
 
+    <div class="mnemonic-modal-content">
     <div class="contents">
       <p class="instruction">{{ $t("accessWallet.pleaseTypeInMnemonicPhrase") }}</p>
       <div class="tools">
@@ -39,12 +40,11 @@
           </li>
         </ul>
       </div>
-    </div>
+      </div>
 
       <div class="button-container">
         <standard-button
           @click="openPasswordModal"
-          :buttonStyle="'green'"
         >
           {{ $t("common.continue") }}
         </standard-button>
